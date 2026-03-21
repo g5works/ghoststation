@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://wix7wxn4uwvp"]
+[gd_scene load_steps=11 format=3 uid="uid://wix7wxn4uwvp"]
 
 [ext_resource type="Texture2D" uid="uid://dumuis6t3vxei" path="res://crosshair.png" id="1_28aoi"]
 [ext_resource type="Texture2D" uid="uid://ckxpg71mrdc74" path="res://f15 death.jpeg" id="1_pq8q7"]
 [ext_resource type="Script" uid="uid://b3v1psetxex2x" path="res://Player.gd" id="1_pyidc"]
 [ext_resource type="Texture2D" uid="uid://br4xl7g66gc2n" path="res://Player.png" id="2_vvh5c"]
+[ext_resource type="Texture2D" uid="uid://b75src4ka8ekx" path="res://SpaceStation_Intact.png" id="4_l8v81"]
 [ext_resource type="Script" uid="uid://d2iexyrr38re1" path="res://cursor.gd" id="5_jnlp7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pyidc"]
@@ -12,11 +13,14 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vvh5c"]
 size = Vector2(86, 86)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l8v81"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_jnlp7"]
 
 [node name="Node" type="Node"]
 
 [node name="object" type="Node2D" parent="."]
+position = Vector2(0, 1)
 
 [node name="indicator" type="Line2D" parent="object"]
 points = PackedVector2Array(0, 0, 0, 0)
@@ -25,13 +29,18 @@ default_color = Color(0, 1, 1, 1)
 
 [node name="striker" type="RayCast2D" parent="object"]
 position = Vector2(170, 90)
+collision_mask = 2
 
 [node name="Player" type="RigidBody2D" parent="object"]
-position = Vector2(289, 194)
+position = Vector2(354, 264)
 mass = 500.0
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_pyidc")
+strength = 100.0
+shoot = 100.0
+passive_util = 0.5
+gun_util = 2.0
 
 [node name="PlayerSprite" type="Sprite2D" parent="object/Player"]
 texture_filter = 1
@@ -46,7 +55,8 @@ shape = SubResource("RectangleShape2D_pyidc")
 [node name="Camera2D" type="Camera2D" parent="object/Player"]
 
 [node name="Physics Heavy" type="RigidBody2D" parent="object"]
-position = Vector2(170, 90)
+position = Vector2(171, 90)
+collision_layer = 3
 mass = 2000.0
 gravity_scale = 0.0
 
@@ -58,7 +68,8 @@ texture = ExtResource("1_pq8q7")
 shape = SubResource("RectangleShape2D_vvh5c")
 
 [node name="Physics Light" type="RigidBody2D" parent="object"]
-position = Vector2(408, 297)
+position = Vector2(108, 283)
+collision_layer = 3
 mass = 100.0
 gravity_scale = 0.0
 
@@ -69,13 +80,198 @@ texture = ExtResource("1_pq8q7")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="object/Physics Light"]
 shape = SubResource("RectangleShape2D_vvh5c")
 
-[node name="Control" type="Control" parent="."]
+[node name="Station" type="RigidBody2D" parent="object"]
+position = Vector2(668, 309)
+mass = 1e+06
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="SpaceStationIntact" type="Sprite2D" parent="object/Station"]
+texture_filter = 1
+texture = ExtResource("4_l8v81")
+
+[node name="Hardpoints" type="Node2D" parent="object/Station"]
+
+[node name="Hardpoint 1" type="RigidBody2D" parent="object/Station/Hardpoints"]
+position = Vector2(-130, 162)
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 1"]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_l8v81")
+
+[node name="Hardpoint 2" type="RigidBody2D" parent="object/Station/Hardpoints"]
+position = Vector2(131, 162)
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 2"]
+position = Vector2(-1, 0)
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_l8v81")
+
+[node name="Hardpoint 3" type="RigidBody2D" parent="object/Station/Hardpoints"]
+position = Vector2(68, 71)
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 3"]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_l8v81")
+
+[node name="Hardpoint 4" type="RigidBody2D" parent="object/Station/Hardpoints"]
+position = Vector2(-52, 71)
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 4"]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_l8v81")
+
+[node name="Hardpoint 5" type="RigidBody2D" parent="object/Station/Hardpoints"]
+position = Vector2(-102, 219)
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 5"]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_l8v81")
+
+[node name="Hardpoint 6" type="RigidBody2D" parent="object/Station/Hardpoints"]
+position = Vector2(100, 219)
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 6"]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_l8v81")
+
+[node name="Hardpoint 7" type="RigidBody2D" parent="object/Station/Hardpoints"]
+position = Vector2(-2, -115)
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 7"]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_l8v81")
+
+[node name="Hardpoint 8" type="RigidBody2D" parent="object/Station/Hardpoints"]
+position = Vector2(76, -193)
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 8"]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_l8v81")
+
+[node name="Hardpoint 9" type="RigidBody2D" parent="object/Station/Hardpoints"]
+position = Vector2(97, -17)
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 9"]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_l8v81")
+
+[node name="Hardpoint 10" type="RigidBody2D" parent="object/Station/Hardpoints"]
+position = Vector2(-98, -17)
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 10"]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_l8v81")
+
+[node name="Hardpoint 11" type="RigidBody2D" parent="object/Station/Hardpoints"]
+position = Vector2(-81, -192)
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 11"]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_l8v81")
+
+[node name="Hardpoint 12" type="RigidBody2D" parent="object/Station/Hardpoints"]
+position = Vector2(0, 205)
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 12"]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_l8v81")
+
+[node name="Airlock" type="CollisionPolygon2D" parent="object/Station"]
+polygon = PackedVector2Array(48, 55, 75, 55, 81, 63, 83, 71, 81, 79, 75, 87, 48, 87)
+
+[node name="Panel BR2" type="CollisionPolygon2D" parent="object/Station"]
+position = Vector2(117, -298)
+rotation = -0.000341739
+polygon = PackedVector2Array(-135.057, 166.954, -102.057, 166.965, -102.104, 302.965, -69.1035, 302.976, -69.1705, 498.976, -95.1705, 498.967, -95.1736, 507.967, -138.174, 507.953, -138.171, 498.953, -165.171, 498.944, -165.104, 302.944, -135.104, 302.954)
+
+[node name="Panel TL" type="CollisionPolygon2D" parent="object/Station"]
+position = Vector2(17.9255, -436.003)
+rotation = -0.000683479
+polygon = PackedVector2Array(-50.1058, 263.969, -118.059, 195.922, -145.078, 222.904, -77.1243, 290.95)
+
+[node name="Panel TR" type="CollisionPolygon2D" parent="object/Station"]
+position = Vector2(203.926, -435.067)
+rotation = -0.000341739
+polygon = PackedVector2Array(-106.992, 195.03, -175.016, 263.007, -148.025, 290.016, -80.0018, 222.039)
+
+[node name="Panel BL" type="CollisionPolygon2D" parent="object/Station"]
+position = Vector2(9, -218)
+rotation = -0.000341739
+polygon = PackedVector2Array(-126.084, 245.957, -58.0608, 177.98, -85.0516, 150.971, -153.075, 218.948)
+
+[node name="Panel BR" type="CollisionPolygon2D" parent="object/Station"]
+position = Vector2(195, -217)
+polygon = PackedVector2Array(-146, 180, -78, 248, -51, 221, -119, 153)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="object/Station"]
+position = Vector2(203, 0)
+polygon = PackedVector2Array(-141, 240, -62, 240, -62, 201, -141, 201)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="object/Station"]
+polygon = PackedVector2Array(-141, 240, -62, 240, -62, 201, -141, 201)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 4.0
+offset_top = -2.0
+offset_right = 1924.0
+offset_bottom = 1078.0
 
-[node name="Cursor" type="TextureRect" parent="Control"]
+[node name="Cursor" type="TextureRect" parent="CanvasLayer/Control"]
 texture_filter = 1
 layout_mode = 0
 offset_right = 32.0
@@ -83,7 +279,7 @@ offset_bottom = 32.0
 texture = ExtResource("1_28aoi")
 script = ExtResource("5_jnlp7")
 
-[node name="Mass Indicator" type="Label" parent="Control/Cursor"]
+[node name="Mass Indicator" type="Label" parent="CanvasLayer/Control/Cursor"]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 15.0
@@ -92,4 +288,16 @@ offset_bottom = 38.0
 text = "Mass: null"
 label_settings = SubResource("LabelSettings_jnlp7")
 
-[connection signal="object_selected" from="object/Player" to="Control/Cursor" method="_on_player_object_selected"]
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -78.0
+offset_top = 81.0
+offset_right = 422.0
+offset_bottom = 108.0
+grow_horizontal = 0
+max_value = 1000.0
+
+[connection signal="object_selected" from="object/Player" to="CanvasLayer/Control/Cursor" method="_on_player_object_selected"]

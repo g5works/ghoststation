@@ -22,15 +22,20 @@ func _input(event):
 	pass;
 
 
-func _on_player_object_selected(position: Vector2, mass: float) -> void:
+func _on_player_object_selected(position: Vector2, mass: float, locked: bool) -> void:
 	snapped = true;
 	self.position.x = position.x-16;
-	self.position.y = position.y-16;
-	massindicator.text = "Mass: " + str(mass);
-	
-	if mass >= 500:
-		massindicator.label_settings.font_color = Color("#FF9100")
+	self.position.y = position.y-16;	
+	if !locked:
+		massindicator.text = "Mass: " + str(mass);
+		if mass >= 500:
+			massindicator.label_settings.font_color = Color("#FF9100")
+		else:
+			massindicator.label_settings.font_color = Color("#006FFF")
 	else:
-		massindicator.label_settings.font_color = Color("#006FFF")
+		massindicator.text = "Hardpoint";
+		massindicator.label_settings.font_color = Color("#00FF00")
+	
+
 
 	pass # Replace with function body.
