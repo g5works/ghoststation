@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://wix7wxn4uwvp"]
+
+[ext_resource type="Texture2D" uid="uid://ckxpg71mrdc74" path="res://f15 death.jpeg" id="1_pq8q7"]
+[ext_resource type="Script" uid="uid://b3v1psetxex2x" path="res://Player.gd" id="1_pyidc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pyidc"]
+size = Vector2(88, 88)
+
+[node name="object" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(170, 90)
+mass = 1000.0
+gravity_scale = 0.0
+script = ExtResource("1_pyidc")
+
+[node name="F15Death" type="Sprite2D" parent="RigidBody2D"]
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("1_pq8q7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_pyidc")
