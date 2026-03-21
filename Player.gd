@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 signal object_selected(position: Vector2, mass: float, locked: bool);
-signal charge_amount(current: float, total: float);
+signal charge_amount(current: float, total: float, utilization: float);
 
 @onready var line := get_parent().get_node("indicator") as Line2D
 @onready var striker := get_parent().get_node("striker") as RayCast2D;
@@ -53,17 +53,14 @@ func _process(delta):
 	if castresult != null:
 		line.points[1] = castresult.global_position;
 		object_selected.emit(castresult.global_position, castresult.mass, castresult.freeze);
-		print(castresult.mass)
 
 	else:
 		line.points[1] = line.get_local_mouse_position();
 		
 	if charge > 0:
 		charge -= delta*utilization;
-		charge_amount.emit(charge, initial_charge)
-	
-	print(charge);
-	print(utilization);
+		charge_amount.emit(charge, initial_charge, utilization)
+
 
 	
 	

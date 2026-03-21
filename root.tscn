@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://wix7wxn4uwvp"]
+[gd_scene load_steps=14 format=3 uid="uid://wix7wxn4uwvp"]
 
 [ext_resource type="Texture2D" uid="uid://dumuis6t3vxei" path="res://crosshair.png" id="1_28aoi"]
 [ext_resource type="Texture2D" uid="uid://ckxpg71mrdc74" path="res://f15 death.jpeg" id="1_pq8q7"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://br4xl7g66gc2n" path="res://Player.png" id="2_vvh5c"]
 [ext_resource type="Texture2D" uid="uid://b75src4ka8ekx" path="res://SpaceStation_Intact.png" id="4_l8v81"]
 [ext_resource type="Script" uid="uid://d2iexyrr38re1" path="res://cursor.gd" id="5_jnlp7"]
+[ext_resource type="Script" uid="uid://pwyemou46n6i" path="res://barstack.gd" id="7_bf3um"]
+[ext_resource type="Script" uid="uid://bd2vvj0q535k0" path="res://progress_bar.gd" id="7_vyht1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pyidc"]
 size = Vector2(32, 32)
@@ -16,6 +18,8 @@ size = Vector2(86, 86)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l8v81"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jnlp7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vyht1"]
 
 [node name="Node" type="Node"]
 
@@ -260,10 +264,7 @@ polygon = PackedVector2Array(-141, 240, -62, 240, -62, 201, -141, 201)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="object/Station"]
 polygon = PackedVector2Array(-141, 240, -62, 240, -62, 201, -141, 201)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-follow_viewport_enabled = true
-
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Moving UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 4.0
@@ -271,7 +272,7 @@ offset_top = -2.0
 offset_right = 1924.0
 offset_bottom = 1078.0
 
-[node name="Cursor" type="TextureRect" parent="CanvasLayer/Control"]
+[node name="Cursor" type="TextureRect" parent="Moving UI"]
 texture_filter = 1
 layout_mode = 0
 offset_right = 32.0
@@ -279,7 +280,7 @@ offset_bottom = 32.0
 texture = ExtResource("1_28aoi")
 script = ExtResource("5_jnlp7")
 
-[node name="Mass Indicator" type="Label" parent="CanvasLayer/Control/Cursor"]
+[node name="Mass Indicator" type="Label" parent="Moving UI/Cursor"]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 15.0
@@ -288,16 +289,80 @@ offset_bottom = 38.0
 text = "Mass: null"
 label_settings = SubResource("LabelSettings_jnlp7")
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
+[node name="Static UI" type="CanvasLayer" parent="."]
+
+[node name="BarStack" type="Control" parent="Static UI"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+script = ExtResource("7_bf3um")
+
+[node name="Label" type="Label" parent="Static UI/BarStack"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -78.0
-offset_top = 81.0
-offset_right = 422.0
-offset_bottom = 108.0
+offset_left = -123.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 31.0
 grow_horizontal = 0
-max_value = 1000.0
+text = "Electric Charge"
+label_settings = SubResource("LabelSettings_vyht1")
 
-[connection signal="object_selected" from="object/Player" to="CanvasLayer/Control/Cursor" method="_on_player_object_selected"]
+[node name="ProgressBar" type="ProgressBar" parent="Static UI/BarStack"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -9.0
+offset_top = 37.0
+offset_right = 491.0
+offset_bottom = 64.0
+grow_horizontal = 0
+scale = Vector2(-1, 1)
+max_value = 1000.0
+show_percentage = false
+script = ExtResource("7_vyht1")
+
+[node name="Amount" type="Label" parent="Static UI/BarStack"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -131.0
+offset_top = 18.0
+offset_right = -16.0
+offset_bottom = 41.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "0/100"
+label_settings = SubResource("LabelSettings_vyht1")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Utilization" type="Label" parent="Static UI/BarStack"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -501.0
+offset_top = 18.0
+offset_right = -386.0
+offset_bottom = 41.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "(1.02)"
+label_settings = SubResource("LabelSettings_vyht1")
+vertical_alignment = 1
+
+[connection signal="charge_amount" from="object/Player" to="Static UI/BarStack" method="_on_player_charge_amount"]
+[connection signal="object_selected" from="object/Player" to="Moving UI/Cursor" method="_on_player_object_selected"]
