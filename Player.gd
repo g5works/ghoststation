@@ -66,7 +66,7 @@ func _physics_process(delta):
 	apply_force(physics_force+button_force, Vector2(0,0));
 	
 	if Input.is_action_just_pressed("RCS Fire"):
-		apply_impulse(100000*global_position.direction_to(get_local_mouse_position()), Vector2(0,0));
+		apply_impulse(100000*global_position.direction_to(get_global_mouse_position()), Vector2(0,0));
 		
 	
 	castresult = striker.get_collider();	
@@ -79,6 +79,10 @@ func _physics_process(delta):
 			castresult.apply_force(-direction*10000);
 		else: 
 			physics_force = Vector2(0,0);
+			
+		if Input.is_action_just_pressed("Eject"):
+			apply_impulse(-direction*10000)
+			castresult.apply_impulse(direction*10000)
 		
 	else:
 		forcable = false;
