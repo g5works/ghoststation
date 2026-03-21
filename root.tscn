@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://wix7wxn4uwvp"]
+[gd_scene load_steps=15 format=3 uid="uid://wix7wxn4uwvp"]
 
 [ext_resource type="Texture2D" uid="uid://dumuis6t3vxei" path="res://crosshair.png" id="1_28aoi"]
 [ext_resource type="Texture2D" uid="uid://ckxpg71mrdc74" path="res://f15 death.jpeg" id="1_pq8q7"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b75src4ka8ekx" path="res://SpaceStation_Intact.png" id="4_l8v81"]
 [ext_resource type="Script" uid="uid://d2iexyrr38re1" path="res://cursor.gd" id="5_jnlp7"]
 [ext_resource type="Script" uid="uid://pwyemou46n6i" path="res://barstack.gd" id="7_bf3um"]
+[ext_resource type="FontFile" uid="uid://cl1tscjqpyj77" path="res://HydrophiliaIced-Regular.otf" id="7_huihk"]
 [ext_resource type="Script" uid="uid://bd2vvj0q535k0" path="res://progress_bar.gd" id="7_vyht1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pyidc"]
@@ -17,9 +18,12 @@ size = Vector2(86, 86)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l8v81"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_jnlp7"]
+[sub_resource type="LabelSettings" id="LabelSettings_tw3kd"]
+font = ExtResource("7_huihk")
 
 [sub_resource type="LabelSettings" id="LabelSettings_vyht1"]
+font = ExtResource("7_huihk")
+font_size = 20
 
 [node name="Node" type="Node"]
 
@@ -281,13 +285,14 @@ texture = ExtResource("1_28aoi")
 script = ExtResource("5_jnlp7")
 
 [node name="Mass Indicator" type="Label" parent="Moving UI/Cursor"]
+texture_filter = 1
 layout_mode = 0
 offset_left = 20.0
-offset_top = 15.0
+offset_top = 16.0
 offset_right = 110.0
-offset_bottom = 38.0
+offset_bottom = 41.0
 text = "Mass: null"
-label_settings = SubResource("LabelSettings_jnlp7")
+label_settings = SubResource("LabelSettings_tw3kd")
 
 [node name="Static UI" type="CanvasLayer" parent="."]
 
@@ -302,6 +307,7 @@ grow_horizontal = 0
 script = ExtResource("7_bf3um")
 
 [node name="Label" type="Label" parent="Static UI/BarStack"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -330,6 +336,7 @@ show_percentage = false
 script = ExtResource("7_vyht1")
 
 [node name="Amount" type="Label" parent="Static UI/BarStack"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -337,9 +344,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -131.0
-offset_top = 18.0
+offset_top = 19.0
 offset_right = -16.0
-offset_bottom = 41.0
+offset_bottom = 42.0
 grow_horizontal = 0
 grow_vertical = 2
 text = "0/100"
@@ -348,16 +355,17 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Utilization" type="Label" parent="Static UI/BarStack"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -501.0
-offset_top = 18.0
-offset_right = -386.0
-offset_bottom = 41.0
+offset_left = -503.0
+offset_top = 16.0
+offset_right = -388.0
+offset_bottom = 46.0
 grow_horizontal = 0
 grow_vertical = 2
 text = "(1.02)"
