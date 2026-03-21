@@ -28,7 +28,10 @@ func _process(delta):
 	
 	
 	if forcable: 
-		line.default_color = Color(0, 1, 1, 0.25);
+		if castresult.mass >= 500:
+			line.default_color = Color("#FF9100", 0.25);
+		else:
+			line.default_color = Color("#006FFF", 0.25);
 	else:
 		line.default_color = Color(1,1,1, 0.25);
 	
