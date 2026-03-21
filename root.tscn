@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://wix7wxn4uwvp"]
+[gd_scene load_steps=8 format=3 uid="uid://wix7wxn4uwvp"]
 
 [ext_resource type="Texture2D" uid="uid://dumuis6t3vxei" path="res://crosshair.png" id="1_28aoi"]
 [ext_resource type="Texture2D" uid="uid://ckxpg71mrdc74" path="res://f15 death.jpeg" id="1_pq8q7"]
 [ext_resource type="Script" uid="uid://b3v1psetxex2x" path="res://Player.gd" id="1_pyidc"]
 [ext_resource type="Texture2D" uid="uid://br4xl7g66gc2n" path="res://Player.png" id="2_vvh5c"]
+[ext_resource type="Script" uid="uid://d2iexyrr38re1" path="res://cursor.gd" id="5_jnlp7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pyidc"]
 size = Vector2(32, 32)
@@ -58,9 +59,17 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
+[node name="Cursor" type="TextureRect" parent="Control"]
 texture_filter = 1
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 32.0
+offset_bottom = 32.0
 texture = ExtResource("1_28aoi")
+script = ExtResource("5_jnlp7")
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="object_selected" from="object/Player" to="Control/Cursor" method="_on_player_object_selected"]
