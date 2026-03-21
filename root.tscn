@@ -1,42 +1,66 @@
-[gd_scene load_steps=4 format=3 uid="uid://wix7wxn4uwvp"]
+[gd_scene load_steps=7 format=3 uid="uid://wix7wxn4uwvp"]
 
+[ext_resource type="Texture2D" uid="uid://dumuis6t3vxei" path="res://crosshair.png" id="1_28aoi"]
 [ext_resource type="Texture2D" uid="uid://ckxpg71mrdc74" path="res://f15 death.jpeg" id="1_pq8q7"]
 [ext_resource type="Script" uid="uid://b3v1psetxex2x" path="res://Player.gd" id="1_pyidc"]
+[ext_resource type="Texture2D" uid="uid://br4xl7g66gc2n" path="res://Player.png" id="2_vvh5c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pyidc"]
-size = Vector2(88, 88)
+size = Vector2(32, 32)
 
-[node name="object" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvh5c"]
+size = Vector2(86, 86)
 
-[node name="indicator" type="Line2D" parent="."]
+[node name="Node" type="Node"]
+
+[node name="object" type="Node2D" parent="."]
+
+[node name="indicator" type="Line2D" parent="object"]
 points = PackedVector2Array(0, 0, 0, 0)
 width = 5.0
 default_color = Color(0, 1, 1, 1)
 
-[node name="striker" type="RayCast2D" parent="."]
+[node name="striker" type="RayCast2D" parent="object"]
 position = Vector2(170, 90)
 
-[node name="Player" type="RigidBody2D" parent="."]
-position = Vector2(170, 90)
+[node name="Player" type="RigidBody2D" parent="object"]
+position = Vector2(277, 179)
 mass = 1000.0
 gravity_scale = 0.0
+lock_rotation = true
 script = ExtResource("1_pyidc")
 
-[node name="F15Death" type="Sprite2D" parent="Player"]
-scale = Vector2(0.025, 0.025)
-texture = ExtResource("1_pq8q7")
+[node name="PlayerSprite" type="Sprite2D" parent="object/Player"]
+texture_filter = 1
+texture = ExtResource("2_vvh5c")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="Grab Point" type="Node2D" parent="object/Player/PlayerSprite"]
+position = Vector2(0, -16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Player"]
 shape = SubResource("RectangleShape2D_pyidc")
 
-[node name="Physics Object" type="RigidBody2D" parent="."]
+[node name="Physics Object" type="RigidBody2D" parent="object"]
 position = Vector2(170, 90)
 mass = 2000.0
 gravity_scale = 0.0
 
-[node name="F15Death" type="Sprite2D" parent="Physics Object"]
+[node name="F15Death" type="Sprite2D" parent="object/Physics Object"]
 scale = Vector2(0.025, 0.025)
 texture = ExtResource("1_pq8q7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Physics Object"]
-shape = SubResource("RectangleShape2D_pyidc")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Physics Object"]
+shape = SubResource("RectangleShape2D_vvh5c")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_28aoi")
