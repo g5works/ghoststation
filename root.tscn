@@ -8,15 +8,35 @@ size = Vector2(88, 88)
 
 [node name="object" type="Node2D"]
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
+[node name="indicator" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
+width = 5.0
+default_color = Color(0, 1, 1, 1)
+
+[node name="striker" type="RayCast2D" parent="."]
+position = Vector2(170, 90)
+
+[node name="Player" type="RigidBody2D" parent="."]
 position = Vector2(170, 90)
 mass = 1000.0
 gravity_scale = 0.0
 script = ExtResource("1_pyidc")
 
-[node name="F15Death" type="Sprite2D" parent="RigidBody2D"]
+[node name="F15Death" type="Sprite2D" parent="Player"]
 scale = Vector2(0.025, 0.025)
 texture = ExtResource("1_pq8q7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_pyidc")
+
+[node name="Physics Object" type="RigidBody2D" parent="."]
+position = Vector2(170, 90)
+mass = 2000.0
+gravity_scale = 0.0
+
+[node name="F15Death" type="Sprite2D" parent="Physics Object"]
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("1_pq8q7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Physics Object"]
 shape = SubResource("RectangleShape2D_pyidc")
