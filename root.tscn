@@ -619,6 +619,7 @@ label_settings = SubResource("LabelSettings_sq7yr")
 script = ExtResource("19_3dlgs")
 player = NodePath("../2D Root/Player")
 indicator = NodePath("../Static UI/Mission Complete Label")
+mission_select = 1
 metadata/_custom_type_script = "uid://bl7ilkafe6t6h"
 
 [node name="MissionSolar" type="Node" parent="MissionController" unique_id=236197637 node_paths=PackedStringArray("object", "socket", "fixed")]
