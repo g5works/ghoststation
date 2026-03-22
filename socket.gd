@@ -1,13 +1,26 @@
 extends Area2D
 
-@export var target: RigidBody2D;
+@onready var block: Sprite2D = get_node("ConnectionArea") as Sprite2D;
+@onready var blockmaterial: ShaderMaterial = block.material as ShaderMaterial;
 
+@export var target: StationPart;
+@export var detecting: bool;
 
-
-func _on_area_entered(area: Area2D) -> void:
+signal part_in_range;
+signal part_out_of_range;
 	
-	pass # Replace with function body.
+func _ready():
+	if detecting:
+		blockmaterial.set_shader_parameter("alpha", 0.1);
+	else:
+		blockmaterial.set_shader_parameter("alpha", 0.0);
 
-
-func _on_area_exited(area: Area2D) -> void:
-	pass # Replace with function body.
+	
+func _process(delta):
+	if detecting and target in get_overlapping_bodies():
+		blockmaterial.set_shader_parameter("tint_color", Vector3(0.0,1.0,0.0))
+		part_in_range.emit();
+	else:
+		blockmaterial.set_shader_parameter("tint_color", Vector3(1.0,0.0,0.0))
+		part_out_of_range.emit();
+		

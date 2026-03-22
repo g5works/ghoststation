@@ -3,18 +3,31 @@
 [ext_resource type="Texture2D" uid="uid://dumuis6t3vxei" path="res://crosshair.png" id="1_28aoi"]
 [ext_resource type="Script" uid="uid://b3v1psetxex2x" path="res://Player.gd" id="1_pyidc"]
 [ext_resource type="Texture2D" uid="uid://br4xl7g66gc2n" path="res://Player.png" id="2_vvh5c"]
+[ext_resource type="Script" uid="uid://b2vmhly11xqx3" path="res://part.gd" id="3_eji0w"]
 [ext_resource type="Texture2D" uid="uid://gnqcedglbh8a" path="res://AirlockToRepair.png" id="3_gd4vy"]
 [ext_resource type="Texture2D" uid="uid://dnvmh1trpp5v" path="res://SolarPanelToRepair.png" id="4_gd4vy"]
 [ext_resource type="Texture2D" uid="uid://b75src4ka8ekx" path="res://SpaceStation_Intact.png" id="4_l8v81"]
+[ext_resource type="Shader" uid="uid://bwr88q00c6l5o" path="res://outline.gdshader" id="4_qwhpj"]
 [ext_resource type="Script" uid="uid://d2iexyrr38re1" path="res://cursor.gd" id="5_jnlp7"]
 [ext_resource type="Script" uid="uid://cri4llgwst3lb" path="res://socket.gd" id="6_qw60f"]
 [ext_resource type="Script" uid="uid://pwyemou46n6i" path="res://barstack.gd" id="7_bf3um"]
 [ext_resource type="FontFile" uid="uid://cl1tscjqpyj77" path="res://HydrophiliaIced-Regular.otf" id="7_huihk"]
 [ext_resource type="Script" uid="uid://bd2vvj0q535k0" path="res://progress_bar.gd" id="7_vyht1"]
 [ext_resource type="Script" uid="uid://l7rmkffdkjhr" path="res://power_bar_stack.gd" id="8_tw3kd"]
+[ext_resource type="Shader" uid="uid://c0ykvlcojp1co" path="res://tint.gdshader" id="9_sq7yr"]
+[ext_resource type="Texture2D" uid="uid://d4ik6alcok8m" path="res://block.png" id="10_r3r3k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pyidc"]
 size = Vector2(32, 32)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qt76e"]
+shader = ExtResource("4_qwhpj")
+shader_parameter/color = Color(0, 1, 0.049999952, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vvh5c"]
 size = Vector2(64, 64)
@@ -24,8 +37,17 @@ size = Vector2(32, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l8v81"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_blcw0"]
+shader = ExtResource("9_sq7yr")
+shader_parameter/tint_color = Color(0, 1, 0, 1)
+shader_parameter/intensity = 1.0
+shader_parameter/alpha = 0.10000000475
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gd4vy"]
 size = Vector2(112, 86)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sq7yr"]
+size = Vector2(62.5, 78)
 
 [sub_resource type="LabelSettings" id="LabelSettings_tw3kd"]
 font = ExtResource("7_huihk")
@@ -53,22 +75,26 @@ bg_color = Color(0, 0, 0, 0.28235295)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eji0w"]
 bg_color = Color(0.07200002, 0.72, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_sq7yr"]
+font = ExtResource("7_huihk")
+font_color = Color(0, 1, 0, 1)
+
 [node name="Node" type="Node" unique_id=1216961980]
 
-[node name="object" type="Node2D" parent="." unique_id=2012191187]
+[node name="2D Root" type="Node2D" parent="." unique_id=2012191187]
 position = Vector2(0, 1)
 
-[node name="indicator" type="Line2D" parent="object" unique_id=1682975515]
+[node name="indicator" type="Line2D" parent="2D Root" unique_id=1682975515]
 points = PackedVector2Array(0, 0, 0, 0)
 width = 5.0
 default_color = Color(0, 1, 1, 1)
 
-[node name="striker" type="RayCast2D" parent="object" unique_id=957311204]
+[node name="striker" type="RayCast2D" parent="2D Root" unique_id=957311204]
 collision_mask = 2
 collide_with_areas = true
 
-[node name="Player" type="RigidBody2D" parent="object" unique_id=2002221611]
-position = Vector2(355, 262)
+[node name="Player" type="RigidBody2D" parent="2D Root" unique_id=2002221611]
+position = Vector2(663, 749)
 mass = 500.0
 gravity_scale = 0.0
 lock_rotation = true
@@ -79,284 +105,301 @@ shoot = 300.0
 passive_util = 0.5
 gun_util = 2.0
 
-[node name="PlayerSprite" type="Sprite2D" parent="object/Player" unique_id=1203483809]
+[node name="PlayerSprite" type="Sprite2D" parent="2D Root/Player" unique_id=1203483809]
 texture_filter = 1
 texture = ExtResource("2_vvh5c")
 
-[node name="Grab Point" type="Node2D" parent="object/Player/PlayerSprite" unique_id=121834613]
+[node name="Grab Point" type="Node2D" parent="2D Root/Player/PlayerSprite" unique_id=121834613]
 position = Vector2(0, -16)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Player" unique_id=445365321]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Player" unique_id=445365321]
 shape = SubResource("RectangleShape2D_pyidc")
 
-[node name="Camera2D" type="Camera2D" parent="object/Player" unique_id=217339043]
+[node name="Camera2D" type="Camera2D" parent="2D Root/Player" unique_id=217339043]
 
-[node name="Airlock" type="RigidBody2D" parent="object" unique_id=1288227055]
-position = Vector2(-57, -445)
-rotation = 2.2781925
+[node name="Airlock" type="RigidBody2D" parent="2D Root" unique_id=1288227055]
+position = Vector2(665, 647)
+rotation = 2.0968742
 collision_layer = 7
 mass = 1000.0
 gravity_scale = 0.0
+script = ExtResource("3_eji0w")
 
-[node name="AirlockToRepair" type="Sprite2D" parent="object/Airlock" unique_id=1135907572]
+[node name="sprite" type="Sprite2D" parent="2D Root/Airlock" unique_id=1135907572]
+material = SubResource("ShaderMaterial_qt76e")
+position = Vector2(0.6498569, 0.76005656)
 texture = ExtResource("3_gd4vy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Airlock" unique_id=208643278]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Airlock" unique_id=208643278]
+position = Vector2(0.50214547, 0.86478317)
 shape = SubResource("RectangleShape2D_vvh5c")
 
-[node name="Physics Heavy2" type="RigidBody2D" parent="object" unique_id=913710994]
+[node name="Physics Heavy2" type="RigidBody2D" parent="2D Root" unique_id=913710994]
 position = Vector2(412, -294)
 rotation = 2.2781925
 collision_layer = 3
 mass = 1000.0
 gravity_scale = 0.0
 
-[node name="AirlockToRepair" type="Sprite2D" parent="object/Physics Heavy2" unique_id=1301447447]
+[node name="AirlockToRepair" type="Sprite2D" parent="2D Root/Physics Heavy2" unique_id=1301447447]
 texture = ExtResource("3_gd4vy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Physics Heavy2" unique_id=2022175710]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Physics Heavy2" unique_id=2022175710]
 shape = SubResource("RectangleShape2D_vvh5c")
 
-[node name="Physics Heavy3" type="RigidBody2D" parent="object" unique_id=1692974847]
-position = Vector2(212, 209)
-rotation = 2.2781925
+[node name="Physics Heavy3" type="RigidBody2D" parent="2D Root" unique_id=1692974847]
+position = Vector2(105, 109)
+rotation = 3.6610186
 collision_layer = 3
 mass = 1000.0
 gravity_scale = 0.0
 
-[node name="AirlockToRepair" type="Sprite2D" parent="object/Physics Heavy3" unique_id=1410948417]
+[node name="AirlockToRepair" type="Sprite2D" parent="2D Root/Physics Heavy3" unique_id=1410948417]
 texture = ExtResource("3_gd4vy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Physics Heavy3" unique_id=1928729630]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Physics Heavy3" unique_id=1928729630]
 shape = SubResource("RectangleShape2D_vvh5c")
 
-[node name="Physics Heavy4" type="RigidBody2D" parent="object" unique_id=889149554]
+[node name="Physics Heavy4" type="RigidBody2D" parent="2D Root" unique_id=889149554]
 position = Vector2(-140, 76)
 rotation = 2.2781925
 collision_layer = 3
 mass = 1000.0
 gravity_scale = 0.0
 
-[node name="AirlockToRepair" type="Sprite2D" parent="object/Physics Heavy4" unique_id=706110962]
+[node name="AirlockToRepair" type="Sprite2D" parent="2D Root/Physics Heavy4" unique_id=706110962]
 texture = ExtResource("3_gd4vy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Physics Heavy4" unique_id=464898752]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Physics Heavy4" unique_id=464898752]
 shape = SubResource("RectangleShape2D_vvh5c")
 
-[node name="Solar Panel" type="RigidBody2D" parent="object" unique_id=281985240]
+[node name="Solar Panel" type="RigidBody2D" parent="2D Root" unique_id=281985240]
 position = Vector2(161, 385)
 rotation = 1.7383119
 collision_layer = 3
 mass = 100.0
 gravity_scale = 0.0
 
-[node name="SolarPanelToRepair" type="Sprite2D" parent="object/Solar Panel" unique_id=914154963]
+[node name="SolarPanelToRepair" type="Sprite2D" parent="2D Root/Solar Panel" unique_id=914154963]
 texture = ExtResource("4_gd4vy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Solar Panel" unique_id=1780587350]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Solar Panel" unique_id=1780587350]
 shape = SubResource("RectangleShape2D_qw60f")
 
-[node name="Station" type="RigidBody2D" parent="object" unique_id=2053783009]
+[node name="Station" type="RigidBody2D" parent="2D Root" unique_id=2053783009]
 position = Vector2(668, 309)
 mass = 1000000.0
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="SpaceStationIntact" type="Sprite2D" parent="object/Station" unique_id=1835079010]
+[node name="SpaceStationIntact" type="Sprite2D" parent="2D Root/Station" unique_id=1835079010]
 texture_filter = 1
 texture = ExtResource("4_l8v81")
 
-[node name="Hardpoints" type="Node2D" parent="object/Station" unique_id=273735799]
+[node name="Hardpoints" type="Node2D" parent="2D Root/Station" unique_id=273735799]
 
-[node name="Hardpoint 1" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=307176079]
+[node name="Hardpoint 1" type="RigidBody2D" parent="2D Root/Station/Hardpoints" unique_id=307176079]
 position = Vector2(-130, 162)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 1" unique_id=2102860703]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Hardpoints/Hardpoint 1" unique_id=2102860703]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 2" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=1790172560]
+[node name="Hardpoint 2" type="RigidBody2D" parent="2D Root/Station/Hardpoints" unique_id=1790172560]
 position = Vector2(131, 162)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 2" unique_id=2111712986]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Hardpoints/Hardpoint 2" unique_id=2111712986]
 position = Vector2(-1, 0)
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 3" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=10759275]
+[node name="Hardpoint 3" type="RigidBody2D" parent="2D Root/Station/Hardpoints" unique_id=10759275]
 position = Vector2(68, 71)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 3" unique_id=1925747721]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Hardpoints/Hardpoint 3" unique_id=1925747721]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 4" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=1088646060]
+[node name="Hardpoint 4" type="RigidBody2D" parent="2D Root/Station/Hardpoints" unique_id=1088646060]
 position = Vector2(-52, 71)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 4" unique_id=414195114]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Hardpoints/Hardpoint 4" unique_id=414195114]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 5" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=55697832]
+[node name="Hardpoint 5" type="RigidBody2D" parent="2D Root/Station/Hardpoints" unique_id=55697832]
 position = Vector2(-102, 219)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 5" unique_id=877123567]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Hardpoints/Hardpoint 5" unique_id=877123567]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 6" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=2094624703]
+[node name="Hardpoint 6" type="RigidBody2D" parent="2D Root/Station/Hardpoints" unique_id=2094624703]
 position = Vector2(100, 219)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 6" unique_id=211933003]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Hardpoints/Hardpoint 6" unique_id=211933003]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 7" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=1459888966]
+[node name="Hardpoint 7" type="RigidBody2D" parent="2D Root/Station/Hardpoints" unique_id=1459888966]
 position = Vector2(-2, -115)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 7" unique_id=963943984]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Hardpoints/Hardpoint 7" unique_id=963943984]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 8" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=1118969006]
+[node name="Hardpoint 8" type="RigidBody2D" parent="2D Root/Station/Hardpoints" unique_id=1118969006]
 position = Vector2(76, -193)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 8" unique_id=1180249065]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Hardpoints/Hardpoint 8" unique_id=1180249065]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 9" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=553100812]
+[node name="Hardpoint 9" type="RigidBody2D" parent="2D Root/Station/Hardpoints" unique_id=553100812]
 position = Vector2(97, -17)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 9" unique_id=1873305126]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Hardpoints/Hardpoint 9" unique_id=1873305126]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 10" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=994076758]
+[node name="Hardpoint 10" type="RigidBody2D" parent="2D Root/Station/Hardpoints" unique_id=994076758]
 position = Vector2(-98, -17)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 10" unique_id=1854584362]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Hardpoints/Hardpoint 10" unique_id=1854584362]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 11" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=1252035512]
+[node name="Hardpoint 11" type="RigidBody2D" parent="2D Root/Station/Hardpoints" unique_id=1252035512]
 position = Vector2(-81, -192)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 11" unique_id=628484457]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Hardpoints/Hardpoint 11" unique_id=628484457]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 12" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=1218250232]
+[node name="Hardpoint 12" type="RigidBody2D" parent="2D Root/Station/Hardpoints" unique_id=1218250232]
 position = Vector2(0, 205)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 12" unique_id=1804623322]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Hardpoints/Hardpoint 12" unique_id=1804623322]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Sockets" type="Node2D" parent="object/Station" unique_id=507390588]
+[node name="Sockets" type="Node2D" parent="2D Root/Station" unique_id=507390588]
 
-[node name="SocketArea" type="Area2D" parent="object/Station/Sockets" unique_id=2018573878]
+[node name="SocketArea" type="Area2D" parent="2D Root/Station/Sockets" unique_id=2018573878 node_paths=PackedStringArray("target")]
 position = Vector2(0, 208)
 collision_layer = 4
 script = ExtResource("6_qw60f")
+target = NodePath("../../../Airlock")
+detecting = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Sockets/SocketArea" unique_id=1672617294]
+[node name="ConnectionArea" type="Sprite2D" parent="2D Root/Station/Sockets/SocketArea" unique_id=1447402158]
+material = SubResource("ShaderMaterial_blcw0")
+position = Vector2(0, 33)
+scale = Vector2(3.5108829, 2.707997)
+texture = ExtResource("10_r3r3k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Sockets/SocketArea" unique_id=1672617294]
 position = Vector2(0, 33)
 shape = SubResource("RectangleShape2D_gd4vy")
 
-[node name="Airlock" type="CollisionPolygon2D" parent="object/Station" unique_id=106589894]
+[node name="RobotContainerArea" type="Area2D" parent="2D Root/Station/Sockets" unique_id=475491945]
+position = Vector2(69, 71)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Sockets/RobotContainerArea" unique_id=1331564249]
+position = Vector2(6.75, 0)
+shape = SubResource("RectangleShape2D_sq7yr")
+
+[node name="Airlock" type="CollisionPolygon2D" parent="2D Root/Station" unique_id=106589894]
 polygon = PackedVector2Array(48, 55, 75, 55, 81, 63, 83, 71, 81, 79, 75, 87, 48, 87)
 
-[node name="Panel BR2" type="CollisionPolygon2D" parent="object/Station" unique_id=1820837665]
+[node name="Panel BR2" type="CollisionPolygon2D" parent="2D Root/Station" unique_id=1820837665]
 position = Vector2(117, -298)
 rotation = -0.000341739
 polygon = PackedVector2Array(-135.057, 166.954, -102.057, 166.965, -102.104, 302.965, -69.1035, 302.976, -69.1705, 498.976, -95.1705, 498.967, -95.1736, 507.967, -138.174, 507.953, -138.171, 498.953, -165.171, 498.944, -165.104, 302.944, -135.104, 302.954)
 
-[node name="Panel TL" type="CollisionPolygon2D" parent="object/Station" unique_id=584819434]
+[node name="Panel TL" type="CollisionPolygon2D" parent="2D Root/Station" unique_id=584819434]
 position = Vector2(17.9255, -436.003)
 rotation = -0.000683479
 polygon = PackedVector2Array(-50.1058, 263.969, -118.059, 195.922, -145.078, 222.904, -77.1243, 290.95)
 
-[node name="Panel TR" type="CollisionPolygon2D" parent="object/Station" unique_id=797080920]
+[node name="Panel TR" type="CollisionPolygon2D" parent="2D Root/Station" unique_id=797080920]
 position = Vector2(203.926, -435.067)
 rotation = -0.000341739
 polygon = PackedVector2Array(-106.992, 195.03, -175.016, 263.007, -148.025, 290.016, -80.0018, 222.039)
 
-[node name="Panel BL" type="CollisionPolygon2D" parent="object/Station" unique_id=1520658262]
+[node name="Panel BL" type="CollisionPolygon2D" parent="2D Root/Station" unique_id=1520658262]
 position = Vector2(9, -218)
 rotation = -0.000341739
 polygon = PackedVector2Array(-126.084, 245.957, -58.0608, 177.98, -85.0516, 150.971, -153.075, 218.948)
 
-[node name="Panel BR" type="CollisionPolygon2D" parent="object/Station" unique_id=178431452]
+[node name="Panel BR" type="CollisionPolygon2D" parent="2D Root/Station" unique_id=178431452]
 position = Vector2(195, -217)
 polygon = PackedVector2Array(-146, 180, -78, 248, -51, 221, -119, 153)
 
-[node name="Wing R" type="CollisionPolygon2D" parent="object/Station" unique_id=1718714512]
+[node name="Wing R" type="CollisionPolygon2D" parent="2D Root/Station" unique_id=1718714512]
 position = Vector2(203, 0)
 polygon = PackedVector2Array(-141, 240, -62, 240, -62, 201, -141, 201)
 
-[node name="Wing L" type="CollisionPolygon2D" parent="object/Station" unique_id=55192712]
+[node name="Wing L" type="CollisionPolygon2D" parent="2D Root/Station" unique_id=55192712]
 polygon = PackedVector2Array(-141, 240, -62, 240, -62, 201, -141, 201)
 
-[node name="Moving UI" type="Control" parent="." unique_id=109578551]
+[node name="Dynamic UI" type="Control" parent="." unique_id=109578551]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 8.0
-offset_top = -14.0
-offset_right = 1928.0
-offset_bottom = 1066.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 rotation = -0.0018678792
 
-[node name="Cursor" type="TextureRect" parent="Moving UI" unique_id=2105199001]
+[node name="Cursor" type="TextureRect" parent="Dynamic UI" unique_id=2105199001]
 texture_filter = 1
 layout_mode = 0
 offset_right = 32.0
@@ -364,7 +407,7 @@ offset_bottom = 32.0
 texture = ExtResource("1_28aoi")
 script = ExtResource("5_jnlp7")
 
-[node name="Mass Indicator" type="Label" parent="Moving UI/Cursor" unique_id=258604710]
+[node name="Mass Indicator" type="Label" parent="Dynamic UI/Cursor" unique_id=258604710]
 texture_filter = 1
 layout_mode = 0
 offset_left = 20.0
@@ -517,8 +560,20 @@ text = "(1.02)"
 label_settings = SubResource("LabelSettings_vyht1")
 vertical_alignment = 1
 
-[connection signal="charge_amount" from="object/Player" to="Static UI/BarStack" method="_on_player_charge_amount"]
-[connection signal="object_selected" from="object/Player" to="Moving UI/Cursor" method="_on_player_object_selected"]
-[connection signal="power_scale" from="object/Player" to="Static UI/PowerBarStack" method="_on_player_power_scale"]
-[connection signal="area_entered" from="object/Station/Sockets/SocketArea" to="object/Station/Sockets/SocketArea" method="_on_area_entered"]
-[connection signal="area_exited" from="object/Station/Sockets/SocketArea" to="object/Station/Sockets/SocketArea" method="_on_area_exited"]
+[node name="Mission Complete Label" type="Label" parent="Static UI" unique_id=2079931051]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_top = 21.0
+offset_right = 129.0
+offset_bottom = 46.0
+grow_horizontal = 2
+text = "Mission Complete, Return to Airlock"
+label_settings = SubResource("LabelSettings_sq7yr")
+
+[connection signal="charge_amount" from="2D Root/Player" to="Static UI/BarStack" method="_on_player_charge_amount"]
+[connection signal="object_selected" from="2D Root/Player" to="Dynamic UI/Cursor" method="_on_player_object_selected"]
+[connection signal="power_scale" from="2D Root/Player" to="Static UI/PowerBarStack" method="_on_player_power_scale"]
+[connection signal="area_entered" from="2D Root/Station/Sockets/SocketArea" to="2D Root/Station/Sockets/SocketArea" method="_on_area_entered"]
+[connection signal="area_exited" from="2D Root/Station/Sockets/SocketArea" to="2D Root/Station/Sockets/SocketArea" method="_on_area_exited"]

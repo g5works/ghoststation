@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dumuis6t3vxei"
-path="res://.godot/imported/crosshair.png-b7f9cb2e0fc32a087972fec001d3421e.ctex"
+uid="uid://cf72xih6nbcnt"
+path="res://.godot/imported/ConnectorBeam.png-3550ee688b78146910c943e9564c311d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://crosshair.png"
-dest_files=["res://.godot/imported/crosshair.png-b7f9cb2e0fc32a087972fec001d3421e.ctex"]
+source_file="res://ConnectorBeam.png"
+dest_files=["res://.godot/imported/ConnectorBeam.png-3550ee688b78146910c943e9564c311d.ctex"]
 
 [params]
 

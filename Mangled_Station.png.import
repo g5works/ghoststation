@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dumuis6t3vxei"
-path="res://.godot/imported/crosshair.png-b7f9cb2e0fc32a087972fec001d3421e.ctex"
+uid="uid://bdtkvqulh68py"
+path="res://.godot/imported/Mangled_Station.png-10426defa14b9afa1f91bcd66116da2d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://crosshair.png"
-dest_files=["res://.godot/imported/crosshair.png-b7f9cb2e0fc32a087972fec001d3421e.ctex"]
+source_file="res://Mangled_Station.png"
+dest_files=["res://.godot/imported/Mangled_Station.png-10426defa14b9afa1f91bcd66116da2d.ctex"]
 
 [params]
 

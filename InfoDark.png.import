@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bnhvcvkb5ofo6"
-path="res://.godot/imported/InfoDark.png-4b1c111bf3933d90c509e7e5e0b67fb3.ctex"
+path="res://.godot/imported/InfoDark.png-5b42fd7f5ea16d7abbcf81332d934903.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Ghost Station sprites/InfoDark.png"
-dest_files=["res://.godot/imported/InfoDark.png-4b1c111bf3933d90c509e7e5e0b67fb3.ctex"]
+source_file="res://InfoDark.png"
+dest_files=["res://.godot/imported/InfoDark.png-5b42fd7f5ea16d7abbcf81332d934903.ctex"]
 
 [params]
 

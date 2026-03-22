@@ -12,7 +12,6 @@ func _process(delta):
 func _input(delta): 
 	pass;
 
-
 func _on_player_charge_amount(current: float, total: float) -> void:
 	max_value = total;
 	value = current;
