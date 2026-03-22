@@ -1,0 +1,15 @@
+You are repair unit R3-ADY, you have been tasked with maintaining the space station you have been assigned to.
+But, where is everyone? It seems that the station has gone quiet, and is in great disrepair.
+
+Use your physics gun to pull or push yourself towards debris, traversing the unforgiving void of space
+so that you can get to the highlighted object you are tasked with repairing, and push or pull the object
+towards the highlighted area of the station to complete the repair!
+
+Afterwards, return to the ship through the entry door, you don't want to run out of electric charge. If you get
+in a sticky situation, press the spacebar to activate your thruster.
+
+CONTROLS: 
+Mouse to orient the robot.
+Scroll wheel to control the force of the physics gun.
+left click to create a force with the physics gun.
+Right click to create impulse with the physics gun.
