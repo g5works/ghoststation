@@ -29,9 +29,9 @@ func _on_player_object_selected(position: Vector2, mass: float, locked: bool) ->
 	if !locked:
 		massindicator.text = "Mass: " + str(mass);
 		if mass >= 500:
-			massindicator.label_settings.font_color = Color("#FF9100")
+			massindicator.label_settings.font_color = Color("e57bffff")
 		else:
-			massindicator.label_settings.font_color = Color("#006FFF")
+			massindicator.label_settings.font_color = Color("ffee00ff")
 	else:
 		massindicator.text = "Hardpoint";
 		massindicator.label_settings.font_color = Color("#00FF00")

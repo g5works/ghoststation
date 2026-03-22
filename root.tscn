@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://wix7wxn4uwvp"]
 
 [ext_resource type="Texture2D" uid="uid://dumuis6t3vxei" path="res://crosshair.png" id="1_28aoi"]
-[ext_resource type="Texture2D" uid="uid://ckxpg71mrdc74" path="res://f15 death.jpeg" id="1_pq8q7"]
 [ext_resource type="Script" uid="uid://b3v1psetxex2x" path="res://Player.gd" id="1_pyidc"]
 [ext_resource type="Texture2D" uid="uid://br4xl7g66gc2n" path="res://Player.png" id="2_vvh5c"]
+[ext_resource type="Texture2D" uid="uid://gnqcedglbh8a" path="res://AirlockToRepair.png" id="3_gd4vy"]
+[ext_resource type="Texture2D" uid="uid://dnvmh1trpp5v" path="res://SolarPanelToRepair.png" id="4_gd4vy"]
 [ext_resource type="Texture2D" uid="uid://b75src4ka8ekx" path="res://SpaceStation_Intact.png" id="4_l8v81"]
 [ext_resource type="Script" uid="uid://d2iexyrr38re1" path="res://cursor.gd" id="5_jnlp7"]
+[ext_resource type="Script" uid="uid://cri4llgwst3lb" path="res://socket.gd" id="6_qw60f"]
 [ext_resource type="Script" uid="uid://pwyemou46n6i" path="res://barstack.gd" id="7_bf3um"]
 [ext_resource type="FontFile" uid="uid://cl1tscjqpyj77" path="res://HydrophiliaIced-Regular.otf" id="7_huihk"]
 [ext_resource type="Script" uid="uid://bd2vvj0q535k0" path="res://progress_bar.gd" id="7_vyht1"]
@@ -15,9 +17,15 @@
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vvh5c"]
-size = Vector2(86, 86)
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qw60f"]
+size = Vector2(32, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l8v81"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gd4vy"]
+size = Vector2(112, 86)
 
 [sub_resource type="LabelSettings" id="LabelSettings_tw3kd"]
 font = ExtResource("7_huihk")
@@ -56,17 +64,17 @@ width = 5.0
 default_color = Color(0, 1, 1, 1)
 
 [node name="striker" type="RayCast2D" parent="object" unique_id=957311204]
-position = Vector2(170, 90)
 collision_mask = 2
+collide_with_areas = true
 
 [node name="Player" type="RigidBody2D" parent="object" unique_id=2002221611]
-position = Vector2(354, 264)
+position = Vector2(355, 262)
 mass = 500.0
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_pyidc")
-initial_charge = 150.0
-strength = 100.0
+initial_charge = 250.0
+strength = 300.0
 shoot = 300.0
 passive_util = 0.5
 gun_util = 2.0
@@ -83,31 +91,70 @@ shape = SubResource("RectangleShape2D_pyidc")
 
 [node name="Camera2D" type="Camera2D" parent="object/Player" unique_id=217339043]
 
-[node name="Physics Heavy" type="RigidBody2D" parent="object" unique_id=1288227055]
-position = Vector2(171, 90)
-collision_layer = 3
-mass = 2000.0
+[node name="Airlock" type="RigidBody2D" parent="object" unique_id=1288227055]
+position = Vector2(-57, -445)
+rotation = 2.2781925
+collision_layer = 7
+mass = 1000.0
 gravity_scale = 0.0
 
-[node name="F15Death" type="Sprite2D" parent="object/Physics Heavy" unique_id=446057662]
-scale = Vector2(0.025, 0.025)
-texture = ExtResource("1_pq8q7")
+[node name="AirlockToRepair" type="Sprite2D" parent="object/Airlock" unique_id=1135907572]
+texture = ExtResource("3_gd4vy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Physics Heavy" unique_id=208643278]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Airlock" unique_id=208643278]
 shape = SubResource("RectangleShape2D_vvh5c")
 
-[node name="Physics Light" type="RigidBody2D" parent="object" unique_id=1100044975]
-position = Vector2(108, 283)
+[node name="Physics Heavy2" type="RigidBody2D" parent="object" unique_id=913710994]
+position = Vector2(412, -294)
+rotation = 2.2781925
+collision_layer = 3
+mass = 1000.0
+gravity_scale = 0.0
+
+[node name="AirlockToRepair" type="Sprite2D" parent="object/Physics Heavy2" unique_id=1301447447]
+texture = ExtResource("3_gd4vy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Physics Heavy2" unique_id=2022175710]
+shape = SubResource("RectangleShape2D_vvh5c")
+
+[node name="Physics Heavy3" type="RigidBody2D" parent="object" unique_id=1692974847]
+position = Vector2(212, 209)
+rotation = 2.2781925
+collision_layer = 3
+mass = 1000.0
+gravity_scale = 0.0
+
+[node name="AirlockToRepair" type="Sprite2D" parent="object/Physics Heavy3" unique_id=1410948417]
+texture = ExtResource("3_gd4vy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Physics Heavy3" unique_id=1928729630]
+shape = SubResource("RectangleShape2D_vvh5c")
+
+[node name="Physics Heavy4" type="RigidBody2D" parent="object" unique_id=889149554]
+position = Vector2(-140, 76)
+rotation = 2.2781925
+collision_layer = 3
+mass = 1000.0
+gravity_scale = 0.0
+
+[node name="AirlockToRepair" type="Sprite2D" parent="object/Physics Heavy4" unique_id=706110962]
+texture = ExtResource("3_gd4vy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Physics Heavy4" unique_id=464898752]
+shape = SubResource("RectangleShape2D_vvh5c")
+
+[node name="Solar Panel" type="RigidBody2D" parent="object" unique_id=281985240]
+position = Vector2(161, 385)
+rotation = 1.7383119
 collision_layer = 3
 mass = 100.0
 gravity_scale = 0.0
 
-[node name="F15Death" type="Sprite2D" parent="object/Physics Light" unique_id=163423485]
-scale = Vector2(0.025, 0.025)
-texture = ExtResource("1_pq8q7")
+[node name="SolarPanelToRepair" type="Sprite2D" parent="object/Solar Panel" unique_id=914154963]
+texture = ExtResource("4_gd4vy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Physics Light" unique_id=128850201]
-shape = SubResource("RectangleShape2D_vvh5c")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Solar Panel" unique_id=1780587350]
+shape = SubResource("RectangleShape2D_qw60f")
 
 [node name="Station" type="RigidBody2D" parent="object" unique_id=2053783009]
 position = Vector2(668, 309)
@@ -255,6 +302,17 @@ freeze = true
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
+[node name="Sockets" type="Node2D" parent="object/Station" unique_id=507390588]
+
+[node name="SocketArea" type="Area2D" parent="object/Station/Sockets" unique_id=2018573878]
+position = Vector2(0, 208)
+collision_layer = 4
+script = ExtResource("6_qw60f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Sockets/SocketArea" unique_id=1672617294]
+position = Vector2(0, 33)
+shape = SubResource("RectangleShape2D_gd4vy")
+
 [node name="Airlock" type="CollisionPolygon2D" parent="object/Station" unique_id=106589894]
 polygon = PackedVector2Array(48, 55, 75, 55, 81, 63, 83, 71, 81, 79, 75, 87, 48, 87)
 
@@ -282,20 +340,21 @@ polygon = PackedVector2Array(-126.084, 245.957, -58.0608, 177.98, -85.0516, 150.
 position = Vector2(195, -217)
 polygon = PackedVector2Array(-146, 180, -78, 248, -51, 221, -119, 153)
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="object/Station" unique_id=1718714512]
+[node name="Wing R" type="CollisionPolygon2D" parent="object/Station" unique_id=1718714512]
 position = Vector2(203, 0)
 polygon = PackedVector2Array(-141, 240, -62, 240, -62, 201, -141, 201)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="object/Station" unique_id=55192712]
+[node name="Wing L" type="CollisionPolygon2D" parent="object/Station" unique_id=55192712]
 polygon = PackedVector2Array(-141, 240, -62, 240, -62, 201, -141, 201)
 
 [node name="Moving UI" type="Control" parent="." unique_id=109578551]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 4.0
-offset_top = -2.0
-offset_right = 1924.0
-offset_bottom = 1078.0
+offset_left = 8.0
+offset_top = -14.0
+offset_right = 1928.0
+offset_bottom = 1066.0
+rotation = -0.0018678792
 
 [node name="Cursor" type="TextureRect" parent="Moving UI" unique_id=2105199001]
 texture_filter = 1
@@ -333,9 +392,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 44.0
-offset_top = -160.10522
+offset_top = -154.02002
 offset_right = 149.0852
-offset_bottom = -132.21375
+offset_bottom = -126.12854
 grow_vertical = 0
 rotation = 1.5707964
 theme_override_styles/background = SubResource("StyleBoxFlat_huihk")
@@ -349,9 +408,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = -160.0
+offset_top = -153.9148
 offset_right = 121.085205
-offset_bottom = -132.10852
+offset_bottom = -126.023315
 grow_vertical = 0
 rotation = -1.5707964
 theme_override_styles/background = SubResource("StyleBoxFlat_huihk")
@@ -363,9 +422,9 @@ show_percentage = false
 [node name="Label" type="Label" parent="Static UI/PowerBarStack" unique_id=324121244]
 layout_mode = 0
 offset_left = 14.0
-offset_top = -18.02005
+offset_top = -12.0000305
 offset_right = 115.0
-offset_bottom = 26.97995
+offset_bottom = 32.99997
 text = "POWER"
 label_settings = SubResource("LabelSettings_gd4vy")
 
@@ -461,3 +520,5 @@ vertical_alignment = 1
 [connection signal="charge_amount" from="object/Player" to="Static UI/BarStack" method="_on_player_charge_amount"]
 [connection signal="object_selected" from="object/Player" to="Moving UI/Cursor" method="_on_player_object_selected"]
 [connection signal="power_scale" from="object/Player" to="Static UI/PowerBarStack" method="_on_player_power_scale"]
+[connection signal="area_entered" from="object/Station/Sockets/SocketArea" to="object/Station/Sockets/SocketArea" method="_on_area_entered"]
+[connection signal="area_exited" from="object/Station/Sockets/SocketArea" to="object/Station/Sockets/SocketArea" method="_on_area_exited"]
