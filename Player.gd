@@ -2,6 +2,7 @@ extends RigidBody2D
 
 signal object_selected(position: Vector2, mass: float, locked: bool);
 signal charge_amount(current: float, total: float, utilization: float);
+signal power_scale(pscale: float);
 
 @onready var line := get_parent().get_node("indicator") as Line2D
 @onready var striker := get_parent().get_node("striker") as RayCast2D;
@@ -21,9 +22,10 @@ var physics_force: Vector2 = Vector2(0,0);
 var forcable: bool = false
 var castresult: RigidBody2D = null;
 
-var charge: float = initial_charge;
+var powerscale: float = 1.0
 
-var utilization = passive_util;
+@onready var charge: float = initial_charge;
+@onready var utilization = passive_util;
 
 func _init():
 	pass
@@ -40,12 +42,14 @@ func _process(delta):
 	striker.target_position = striker.get_local_mouse_position();
 	striker.add_exception(self)
 	
-	
+
 	if forcable: 
-		if castresult.mass >= 500:
-			line.default_color = Color("#FF9100", 0.25);
+		if powerscale >= 0:
+			line.default_color = Color("#006FFF", powerscale);
+
 		else:
-			line.default_color = Color("#006FFF", 0.25);
+			line.default_color = Color("#FF9100", -powerscale);
+				
 	else:
 		line.default_color = Color(1,1,1, 0.25);
 
@@ -57,14 +61,19 @@ func _process(delta):
 	else:
 		line.points[1] = line.get_local_mouse_position();
 		
-	if charge > 0:
+	if charge > 0:	
 		charge -= delta*utilization;
-		charge_amount.emit(charge, initial_charge, utilization)
+	charge_amount.emit(charge, initial_charge, utilization)
 
 
+	if powerscale > -1 and Input.is_action_just_pressed("Eject Power Down"): 
+		powerscale -= 0.2;
+		power_scale.emit(powerscale);
 	
+	if powerscale < 1 and Input.is_action_just_pressed("Eject Power Up"):
+		powerscale += 0.2;
+		power_scale.emit(powerscale);
 	
-
 func _physics_process(delta):
 	
 	#apply_force(physics_force+button_force, Vector2(0,0));
@@ -79,16 +88,17 @@ func _physics_process(delta):
 		forcable = true;
 		var direction: Vector2 = global_position.direction_to(castresult.global_position);
 		if Input.is_action_pressed("Pull") and charge > 0:
-				apply_force(direction*strength*10000*delta);
-				castresult.apply_force(-direction*strength*delta*10000);
-				utilization = passive_util + gun_util;
+				apply_force(direction*strength*powerscale*10000*delta);
+				castresult.apply_force(-direction*strength*powerscale*delta*10000);
+				utilization = passive_util + (abs(powerscale)*gun_util);
 		else:
 			utilization = passive_util;
 			
 			
 		if Input.is_action_just_pressed("Eject") and charge > 0:
-			apply_impulse(-direction*10000)
-			castresult.apply_impulse(delta*shoot*direction*10000)
+			apply_impulse(delta*shoot*powerscale*direction*10000)
+			castresult.apply_impulse(-delta*shoot*powerscale*direction*10000)
+			charge -= 5
 		
 	else:
 		forcable = false;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://wix7wxn4uwvp"]
+[gd_scene format=3 uid="uid://wix7wxn4uwvp"]
 
 [ext_resource type="Texture2D" uid="uid://dumuis6t3vxei" path="res://crosshair.png" id="1_28aoi"]
 [ext_resource type="Texture2D" uid="uid://ckxpg71mrdc74" path="res://f15 death.jpeg" id="1_pq8q7"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://pwyemou46n6i" path="res://barstack.gd" id="7_bf3um"]
 [ext_resource type="FontFile" uid="uid://cl1tscjqpyj77" path="res://HydrophiliaIced-Regular.otf" id="7_huihk"]
 [ext_resource type="Script" uid="uid://bd2vvj0q535k0" path="res://progress_bar.gd" id="7_vyht1"]
+[ext_resource type="Script" uid="uid://l7rmkffdkjhr" path="res://power_bar_stack.gd" id="8_tw3kd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pyidc"]
 size = Vector2(32, 32)
@@ -21,254 +22,274 @@ size = Vector2(86, 86)
 [sub_resource type="LabelSettings" id="LabelSettings_tw3kd"]
 font = ExtResource("7_huihk")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_huihk"]
+bg_color = Color(0, 0, 0, 0.3254902)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gd4vy"]
+bg_color = Color(0.89, 0.35600004, 0, 0.8509804)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tw3kd"]
+bg_color = Color(0, 0.76862746, 1, 0.8509804)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gd4vy"]
+font = ExtResource("7_huihk")
+font_size = 30
+
 [sub_resource type="LabelSettings" id="LabelSettings_vyht1"]
 font = ExtResource("7_huihk")
-font_size = 20
+font_size = 12
 
-[node name="Node" type="Node"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qw60f"]
+bg_color = Color(0, 0, 0, 0.28235295)
 
-[node name="object" type="Node2D" parent="."]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eji0w"]
+bg_color = Color(0.07200002, 0.72, 0, 1)
+
+[node name="Node" type="Node" unique_id=1216961980]
+
+[node name="object" type="Node2D" parent="." unique_id=2012191187]
 position = Vector2(0, 1)
 
-[node name="indicator" type="Line2D" parent="object"]
+[node name="indicator" type="Line2D" parent="object" unique_id=1682975515]
 points = PackedVector2Array(0, 0, 0, 0)
 width = 5.0
 default_color = Color(0, 1, 1, 1)
 
-[node name="striker" type="RayCast2D" parent="object"]
+[node name="striker" type="RayCast2D" parent="object" unique_id=957311204]
 position = Vector2(170, 90)
 collision_mask = 2
 
-[node name="Player" type="RigidBody2D" parent="object"]
+[node name="Player" type="RigidBody2D" parent="object" unique_id=2002221611]
 position = Vector2(354, 264)
 mass = 500.0
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_pyidc")
+initial_charge = 150.0
 strength = 100.0
-shoot = 100.0
+shoot = 300.0
 passive_util = 0.5
 gun_util = 2.0
 
-[node name="PlayerSprite" type="Sprite2D" parent="object/Player"]
+[node name="PlayerSprite" type="Sprite2D" parent="object/Player" unique_id=1203483809]
 texture_filter = 1
 texture = ExtResource("2_vvh5c")
 
-[node name="Grab Point" type="Node2D" parent="object/Player/PlayerSprite"]
+[node name="Grab Point" type="Node2D" parent="object/Player/PlayerSprite" unique_id=121834613]
 position = Vector2(0, -16)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Player" unique_id=445365321]
 shape = SubResource("RectangleShape2D_pyidc")
 
-[node name="Camera2D" type="Camera2D" parent="object/Player"]
+[node name="Camera2D" type="Camera2D" parent="object/Player" unique_id=217339043]
 
-[node name="Physics Heavy" type="RigidBody2D" parent="object"]
+[node name="Physics Heavy" type="RigidBody2D" parent="object" unique_id=1288227055]
 position = Vector2(171, 90)
 collision_layer = 3
 mass = 2000.0
 gravity_scale = 0.0
 
-[node name="F15Death" type="Sprite2D" parent="object/Physics Heavy"]
+[node name="F15Death" type="Sprite2D" parent="object/Physics Heavy" unique_id=446057662]
 scale = Vector2(0.025, 0.025)
 texture = ExtResource("1_pq8q7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Physics Heavy"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Physics Heavy" unique_id=208643278]
 shape = SubResource("RectangleShape2D_vvh5c")
 
-[node name="Physics Light" type="RigidBody2D" parent="object"]
+[node name="Physics Light" type="RigidBody2D" parent="object" unique_id=1100044975]
 position = Vector2(108, 283)
 collision_layer = 3
 mass = 100.0
 gravity_scale = 0.0
 
-[node name="F15Death" type="Sprite2D" parent="object/Physics Light"]
+[node name="F15Death" type="Sprite2D" parent="object/Physics Light" unique_id=163423485]
 scale = Vector2(0.025, 0.025)
 texture = ExtResource("1_pq8q7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Physics Light"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Physics Light" unique_id=128850201]
 shape = SubResource("RectangleShape2D_vvh5c")
 
-[node name="Station" type="RigidBody2D" parent="object"]
+[node name="Station" type="RigidBody2D" parent="object" unique_id=2053783009]
 position = Vector2(668, 309)
-mass = 1e+06
+mass = 1000000.0
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="SpaceStationIntact" type="Sprite2D" parent="object/Station"]
+[node name="SpaceStationIntact" type="Sprite2D" parent="object/Station" unique_id=1835079010]
 texture_filter = 1
 texture = ExtResource("4_l8v81")
 
-[node name="Hardpoints" type="Node2D" parent="object/Station"]
+[node name="Hardpoints" type="Node2D" parent="object/Station" unique_id=273735799]
 
-[node name="Hardpoint 1" type="RigidBody2D" parent="object/Station/Hardpoints"]
+[node name="Hardpoint 1" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=307176079]
 position = Vector2(-130, 162)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 1" unique_id=2102860703]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 2" type="RigidBody2D" parent="object/Station/Hardpoints"]
+[node name="Hardpoint 2" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=1790172560]
 position = Vector2(131, 162)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 2" unique_id=2111712986]
 position = Vector2(-1, 0)
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 3" type="RigidBody2D" parent="object/Station/Hardpoints"]
+[node name="Hardpoint 3" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=10759275]
 position = Vector2(68, 71)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 3" unique_id=1925747721]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 4" type="RigidBody2D" parent="object/Station/Hardpoints"]
+[node name="Hardpoint 4" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=1088646060]
 position = Vector2(-52, 71)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 4" unique_id=414195114]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 5" type="RigidBody2D" parent="object/Station/Hardpoints"]
+[node name="Hardpoint 5" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=55697832]
 position = Vector2(-102, 219)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 5"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 5" unique_id=877123567]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 6" type="RigidBody2D" parent="object/Station/Hardpoints"]
+[node name="Hardpoint 6" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=2094624703]
 position = Vector2(100, 219)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 6"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 6" unique_id=211933003]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 7" type="RigidBody2D" parent="object/Station/Hardpoints"]
+[node name="Hardpoint 7" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=1459888966]
 position = Vector2(-2, -115)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 7"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 7" unique_id=963943984]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 8" type="RigidBody2D" parent="object/Station/Hardpoints"]
+[node name="Hardpoint 8" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=1118969006]
 position = Vector2(76, -193)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 8"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 8" unique_id=1180249065]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 9" type="RigidBody2D" parent="object/Station/Hardpoints"]
+[node name="Hardpoint 9" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=553100812]
 position = Vector2(97, -17)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 9"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 9" unique_id=1873305126]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 10" type="RigidBody2D" parent="object/Station/Hardpoints"]
+[node name="Hardpoint 10" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=994076758]
 position = Vector2(-98, -17)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 10"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 10" unique_id=1854584362]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 11" type="RigidBody2D" parent="object/Station/Hardpoints"]
+[node name="Hardpoint 11" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=1252035512]
 position = Vector2(-81, -192)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 11"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 11" unique_id=628484457]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Hardpoint 12" type="RigidBody2D" parent="object/Station/Hardpoints"]
+[node name="Hardpoint 12" type="RigidBody2D" parent="object/Station/Hardpoints" unique_id=1218250232]
 position = Vector2(0, 205)
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 12"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object/Station/Hardpoints/Hardpoint 12" unique_id=1804623322]
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l8v81")
 
-[node name="Airlock" type="CollisionPolygon2D" parent="object/Station"]
+[node name="Airlock" type="CollisionPolygon2D" parent="object/Station" unique_id=106589894]
 polygon = PackedVector2Array(48, 55, 75, 55, 81, 63, 83, 71, 81, 79, 75, 87, 48, 87)
 
-[node name="Panel BR2" type="CollisionPolygon2D" parent="object/Station"]
+[node name="Panel BR2" type="CollisionPolygon2D" parent="object/Station" unique_id=1820837665]
 position = Vector2(117, -298)
 rotation = -0.000341739
 polygon = PackedVector2Array(-135.057, 166.954, -102.057, 166.965, -102.104, 302.965, -69.1035, 302.976, -69.1705, 498.976, -95.1705, 498.967, -95.1736, 507.967, -138.174, 507.953, -138.171, 498.953, -165.171, 498.944, -165.104, 302.944, -135.104, 302.954)
 
-[node name="Panel TL" type="CollisionPolygon2D" parent="object/Station"]
+[node name="Panel TL" type="CollisionPolygon2D" parent="object/Station" unique_id=584819434]
 position = Vector2(17.9255, -436.003)
 rotation = -0.000683479
 polygon = PackedVector2Array(-50.1058, 263.969, -118.059, 195.922, -145.078, 222.904, -77.1243, 290.95)
 
-[node name="Panel TR" type="CollisionPolygon2D" parent="object/Station"]
+[node name="Panel TR" type="CollisionPolygon2D" parent="object/Station" unique_id=797080920]
 position = Vector2(203.926, -435.067)
 rotation = -0.000341739
 polygon = PackedVector2Array(-106.992, 195.03, -175.016, 263.007, -148.025, 290.016, -80.0018, 222.039)
 
-[node name="Panel BL" type="CollisionPolygon2D" parent="object/Station"]
+[node name="Panel BL" type="CollisionPolygon2D" parent="object/Station" unique_id=1520658262]
 position = Vector2(9, -218)
 rotation = -0.000341739
 polygon = PackedVector2Array(-126.084, 245.957, -58.0608, 177.98, -85.0516, 150.971, -153.075, 218.948)
 
-[node name="Panel BR" type="CollisionPolygon2D" parent="object/Station"]
+[node name="Panel BR" type="CollisionPolygon2D" parent="object/Station" unique_id=178431452]
 position = Vector2(195, -217)
 polygon = PackedVector2Array(-146, 180, -78, 248, -51, 221, -119, 153)
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="object/Station"]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="object/Station" unique_id=1718714512]
 position = Vector2(203, 0)
 polygon = PackedVector2Array(-141, 240, -62, 240, -62, 201, -141, 201)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="object/Station"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="object/Station" unique_id=55192712]
 polygon = PackedVector2Array(-141, 240, -62, 240, -62, 201, -141, 201)
 
-[node name="Moving UI" type="Control" parent="."]
+[node name="Moving UI" type="Control" parent="." unique_id=109578551]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 4.0
@@ -276,7 +297,7 @@ offset_top = -2.0
 offset_right = 1924.0
 offset_bottom = 1078.0
 
-[node name="Cursor" type="TextureRect" parent="Moving UI"]
+[node name="Cursor" type="TextureRect" parent="Moving UI" unique_id=2105199001]
 texture_filter = 1
 layout_mode = 0
 offset_right = 32.0
@@ -284,7 +305,7 @@ offset_bottom = 32.0
 texture = ExtResource("1_28aoi")
 script = ExtResource("5_jnlp7")
 
-[node name="Mass Indicator" type="Label" parent="Moving UI/Cursor"]
+[node name="Mass Indicator" type="Label" parent="Moving UI/Cursor" unique_id=258604710]
 texture_filter = 1
 layout_mode = 0
 offset_left = 20.0
@@ -294,9 +315,70 @@ offset_bottom = 41.0
 text = "Mass: null"
 label_settings = SubResource("LabelSettings_tw3kd")
 
-[node name="Static UI" type="CanvasLayer" parent="."]
+[node name="Static UI" type="CanvasLayer" parent="." unique_id=1976150524]
 
-[node name="BarStack" type="Control" parent="Static UI"]
+[node name="PowerBarStack" type="Control" parent="Static UI" unique_id=155180057]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+script = ExtResource("8_tw3kd")
+
+[node name="power-" type="ProgressBar" parent="Static UI/PowerBarStack" unique_id=1565325935]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 44.0
+offset_top = -160.10522
+offset_right = 149.0852
+offset_bottom = -132.21375
+grow_vertical = 0
+rotation = 1.5707964
+theme_override_styles/background = SubResource("StyleBoxFlat_huihk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gd4vy")
+max_value = 1.0
+show_percentage = false
+
+[node name="power+" type="ProgressBar" parent="Static UI/PowerBarStack" unique_id=415973269]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -160.0
+offset_right = 121.085205
+offset_bottom = -132.10852
+grow_vertical = 0
+rotation = -1.5707964
+theme_override_styles/background = SubResource("StyleBoxFlat_huihk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tw3kd")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Static UI/PowerBarStack" unique_id=324121244]
+layout_mode = 0
+offset_left = 14.0
+offset_top = -18.02005
+offset_right = 115.0
+offset_bottom = 26.97995
+text = "POWER"
+label_settings = SubResource("LabelSettings_gd4vy")
+
+[node name="Label" type="Label" parent="Static UI/PowerBarStack/Label" unique_id=315099657]
+layout_mode = 0
+offset_left = 35.0
+offset_top = -123.97998
+offset_right = 136.0
+offset_bottom = -78.97998
+text = "0"
+label_settings = SubResource("LabelSettings_gd4vy")
+
+[node name="BarStack" type="Control" parent="Static UI" unique_id=694558050]
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
@@ -306,36 +388,40 @@ offset_bottom = 40.0
 grow_horizontal = 0
 script = ExtResource("7_bf3um")
 
-[node name="Label" type="Label" parent="Static UI/BarStack"]
+[node name="Label" type="Label" parent="Static UI/BarStack" unique_id=1117690317]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -123.0
-offset_top = 8.0
+offset_top = 10.0
 offset_right = -8.0
-offset_bottom = 31.0
+offset_bottom = 33.0
 grow_horizontal = 0
 text = "Electric Charge"
 label_settings = SubResource("LabelSettings_vyht1")
+horizontal_alignment = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="Static UI/BarStack"]
+[node name="ProgressBar" type="ProgressBar" parent="Static UI/BarStack" unique_id=1547556982]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -9.0
-offset_top = 37.0
-offset_right = 491.0
-offset_bottom = 64.0
+offset_left = -7.940613
+offset_top = 28.255463
+offset_right = 294.11877
+offset_bottom = 43.902954
 grow_horizontal = 0
 scale = Vector2(-1, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_qw60f")
+theme_override_styles/fill = SubResource("StyleBoxFlat_eji0w")
 max_value = 1000.0
+value = 50.0
 show_percentage = false
 script = ExtResource("7_vyht1")
 
-[node name="Amount" type="Label" parent="Static UI/BarStack"]
+[node name="Amount" type="Label" parent="Static UI/BarStack" unique_id=2119721929]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 6
@@ -343,10 +429,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -131.0
-offset_top = 19.0
-offset_right = -16.0
-offset_bottom = 42.0
+offset_left = -129.94061
+offset_top = 4.0
+offset_right = -14.940613
+offset_bottom = 27.0
 grow_horizontal = 0
 grow_vertical = 2
 text = "0/100"
@@ -354,7 +440,7 @@ label_settings = SubResource("LabelSettings_vyht1")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Utilization" type="Label" parent="Static UI/BarStack"]
+[node name="Utilization" type="Label" parent="Static UI/BarStack" unique_id=568642872]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 6
@@ -362,10 +448,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -503.0
-offset_top = 16.0
-offset_right = -388.0
-offset_bottom = 46.0
+offset_left = -306.9406
+offset_top = 1.0
+offset_right = -191.94061
+offset_bottom = 31.0
 grow_horizontal = 0
 grow_vertical = 2
 text = "(1.02)"
@@ -374,3 +460,4 @@ vertical_alignment = 1
 
 [connection signal="charge_amount" from="object/Player" to="Static UI/BarStack" method="_on_player_charge_amount"]
 [connection signal="object_selected" from="object/Player" to="Moving UI/Cursor" method="_on_player_object_selected"]
+[connection signal="power_scale" from="object/Player" to="Static UI/PowerBarStack" method="_on_player_power_scale"]

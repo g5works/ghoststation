@@ -26,7 +26,8 @@ func _on_player_charge_amount(current: float, total: float, utilization: float) 
 	
 	if current > 0:
 		util.text = "(" + str(utilization) + ")";
+		quant.text = "%-0.2f"%abs(current) + "/" + str(total);
+
 	else:
-		util.text = 0.0
-		
-	quant.text = "%-0.2f"%abs(current) + "/" + str(total);
+		util.text = "(0.0)";
+		quant.text = "0.00" + "/" + str(total);
