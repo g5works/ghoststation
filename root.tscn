@@ -63,6 +63,12 @@ shader_parameter/alpha = 0.10000000475
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gd4vy"]
 size = Vector2(126.5, 121)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vte5o"]
+shader = ExtResource("9_sq7yr")
+shader_parameter/tint_color = Color(1, 0, 0, 1)
+shader_parameter/intensity = 1.0
+shader_parameter/alpha = 1.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vte5o"]
 size = Vector2(125.965576, 121.62244)
 
@@ -367,7 +373,7 @@ shape = SubResource("RectangleShape2D_l8v81")
 [node name="Sockets" type="Node2D" parent="2D Root/Station" unique_id=507390588]
 
 [node name="SocketAirlock" type="Area2D" parent="2D Root/Station/Sockets" unique_id=2018573878 node_paths=PackedStringArray("target")]
-position = Vector2(103, 42)
+position = Vector2(103, 38)
 collision_layer = 4
 script = ExtResource("6_qw60f")
 target = NodePath("../../../Airlock")
@@ -379,6 +385,7 @@ scale = Vector2(3.950883, 3.7879972)
 texture = ExtResource("10_r3r3k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Sockets/SocketAirlock" unique_id=1672617294]
+visible = false
 position = Vector2(7.75, 33)
 shape = SubResource("RectangleShape2D_gd4vy")
 
@@ -390,11 +397,12 @@ script = ExtResource("6_qw60f")
 target = NodePath("../../../Airlock")
 
 [node name="ConnectionArea" type="Sprite2D" parent="2D Root/Station/Sockets/SocketSolar" unique_id=1483284482]
-material = SubResource("ShaderMaterial_blcw0")
+material = SubResource("ShaderMaterial_vte5o")
 scale = Vector2(3.950883, 3.7879972)
 texture = ExtResource("10_r3r3k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Station/Sockets/SocketSolar" unique_id=294556418]
+visible = false
 position = Vector2(-0.05041504, 0)
 shape = SubResource("RectangleShape2D_vte5o")
 
@@ -608,7 +616,7 @@ metadata/_custom_type_script = "uid://bl7ilkafe6t6h"
 [node name="MissionSolar" type="Node" parent="MissionController" unique_id=236197637 node_paths=PackedStringArray("object", "socket")]
 script = ExtResource("20_vte5o")
 object = NodePath("../../2D Root/Solar Panel2")
-socket = NodePath("../../2D Root/Station/Sockets/SocketAirlock")
+socket = NodePath("../../2D Root/Station/Sockets/SocketSolar")
 metadata/_custom_type_script = "uid://bq0l38rg7lmy7"
 
 [node name="MissionAirlock" type="Node" parent="MissionController" unique_id=1434540757 node_paths=PackedStringArray("object", "socket")]
