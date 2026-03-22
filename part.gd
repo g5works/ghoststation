@@ -5,8 +5,7 @@ extends RigidBody2D
 
 @export var active = false;
 
-func _ready() -> void:
-	
+func _process(delta) -> void:
 	
 	if active:
 		(sprite.material as ShaderMaterial).set_shader_parameter("width", 2);

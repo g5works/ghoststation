@@ -1,8 +1,11 @@
+class_name Player
 extends RigidBody2D
 
 signal object_selected(position: Vector2, mass: float, locked: bool);
 signal charge_amount(current: float, total: float, utilization: float);
 signal power_scale(pscale: float);
+signal mission_end();
+signal power_out();
 
 @onready var line := get_parent().get_node("indicator") as Line2D
 @onready var striker := get_parent().get_node("striker") as RayCast2D;
@@ -21,6 +24,8 @@ var button_force: Vector2 = Vector2(0,0);
 var physics_force: Vector2 = Vector2(0,0);
 var forcable: bool = false
 var castresult: RigidBody2D = null;
+
+var mission_complete: bool = false;
 
 var powerscale: float = 1.0
 
@@ -63,6 +68,8 @@ func _process(delta):
 		
 	if charge > 0:	
 		charge -= delta*utilization;
+	else:
+		power_out.emit();
 	charge_amount.emit(charge, initial_charge, utilization)
 
 
@@ -73,6 +80,9 @@ func _process(delta):
 	if powerscale < 1 and Input.is_action_just_pressed("Eject Power Up"):
 		powerscale += 0.2;
 		power_scale.emit(powerscale);
+		
+	if mission_complete:
+		mission_end.emit();
 	
 func _physics_process(delta):
 	
@@ -105,3 +115,16 @@ func _physics_process(delta):
 
 func _on_socket_area_area_exited(area: Area2D) -> void:
 	pass 
+
+
+func _on_socket_area_part_in_range() -> void:
+	mission_complete = true;
+
+
+func _on_robot_container_area_player_in_area() -> void:
+	if mission_complete:
+		charge = initial_charge;
+		utilization = 0;
+		
+		
+		
