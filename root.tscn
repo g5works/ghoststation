@@ -67,7 +67,7 @@ size = Vector2(126.5, 121)
 shader = ExtResource("9_sq7yr")
 shader_parameter/tint_color = Color(1, 0, 0, 1)
 shader_parameter/intensity = 1.0
-shader_parameter/alpha = 1.0
+shader_parameter/alpha = 0.14000000665
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vte5o"]
 size = Vector2(125.965576, 121.62244)
@@ -150,8 +150,8 @@ shape = SubResource("RectangleShape2D_pyidc")
 [node name="Camera2D" type="Camera2D" parent="2D Root/Player" unique_id=217339043]
 
 [node name="Airlock" type="RigidBody2D" parent="2D Root" unique_id=1288227055]
-position = Vector2(665, 647)
-rotation = 2.0968742
+position = Vector2(-217.99998, -546)
+rotation = 3.081099
 collision_layer = 7
 mass = 1000.0
 gravity_scale = 0.0
@@ -166,24 +166,24 @@ texture = ExtResource("5_vte5o")
 position = Vector2(1.3669128, 0.5615845)
 shape = SubResource("RectangleShape2D_po8fv")
 
-[node name="Solar Panel2" type="RigidBody2D" parent="2D Root" unique_id=284147836]
-position = Vector2(1033, 549)
-rotation = 2.0968742
+[node name="Solar Panel" type="RigidBody2D" parent="2D Root" unique_id=284147836]
+position = Vector2(1061, 513)
+rotation = 2.6258879
 collision_layer = 7
 mass = 200.0
 gravity_scale = 0.0
 script = ExtResource("3_eji0w")
 
-[node name="sprite" type="Sprite2D" parent="2D Root/Solar Panel2" unique_id=766352553]
+[node name="sprite" type="Sprite2D" parent="2D Root/Solar Panel" unique_id=766352553]
 material = SubResource("ShaderMaterial_3dlgs")
 texture = ExtResource("6_3dlgs")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="2D Root/Solar Panel2" unique_id=883241490]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="2D Root/Solar Panel" unique_id=883241490]
 build_mode = 1
 polygon = PackedVector2Array(-46.029297, -19.526978, -19.91861, -46.252075, 46.531464, 20.391602, 20.420715, 47.11682)
 
 [node name="Physics Heavy2" type="RigidBody2D" parent="2D Root" unique_id=913710994]
-position = Vector2(412, -294)
+position = Vector2(191, -386)
 rotation = 2.2781925
 collision_layer = 3
 mass = 2000.0
@@ -209,7 +209,7 @@ texture = ExtResource("3_gd4vy")
 shape = SubResource("RectangleShape2D_vvh5c")
 
 [node name="Physics Heavy4" type="RigidBody2D" parent="2D Root" unique_id=889149554]
-position = Vector2(-140, 76)
+position = Vector2(-259, -118)
 rotation = 2.2781925
 collision_layer = 3
 mass = 2000.0
@@ -221,17 +221,17 @@ texture = ExtResource("3_gd4vy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Physics Heavy4" unique_id=464898752]
 shape = SubResource("RectangleShape2D_vvh5c")
 
-[node name="Solar Panel" type="RigidBody2D" parent="2D Root" unique_id=281985240]
+[node name="Solar Debris" type="RigidBody2D" parent="2D Root" unique_id=281985240]
 position = Vector2(161, 385)
 rotation = 1.7383119
 collision_layer = 3
 mass = 100.0
 gravity_scale = 0.0
 
-[node name="SolarPanelToRepair" type="Sprite2D" parent="2D Root/Solar Panel" unique_id=914154963]
+[node name="SolarPanelToRepair" type="Sprite2D" parent="2D Root/Solar Debris" unique_id=914154963]
 texture = ExtResource("4_gd4vy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Solar Panel" unique_id=1780587350]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2D Root/Solar Debris" unique_id=1780587350]
 shape = SubResource("RectangleShape2D_qw60f")
 
 [node name="Station" type="RigidBody2D" parent="2D Root" unique_id=2053783009]
@@ -424,13 +424,22 @@ shape = SubResource("RectangleShape2D_3dlgs")
 position = Vector2(0, -60)
 shape = SubResource("RectangleShape2D_50g4q")
 
+[node name="FixedZones" type="Node2D" parent="2D Root" unique_id=923048398]
+
+[node name="FixedSolar" type="Node2D" parent="2D Root/FixedZones" unique_id=888993303]
+position = Vector2(742.00006, 269.00003)
+rotation = -0.034906585
+
+[node name="FixedAirlock" type="Node2D" parent="2D Root/FixedZones" unique_id=1417547873]
+position = Vector2(734, 382)
+
 [node name="Dynamic UI" type="Control" parent="." unique_id=109578551]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -9.0
+offset_left = -9.000001
 offset_right = 1911.0
 offset_bottom = 1080.0
-rotation = -0.0018678792
+rotation = -0.021443771
 
 [node name="Cursor" type="TextureRect" parent="Dynamic UI" unique_id=2105199001]
 texture_filter = 1
@@ -610,19 +619,20 @@ label_settings = SubResource("LabelSettings_sq7yr")
 script = ExtResource("19_3dlgs")
 player = NodePath("../2D Root/Player")
 indicator = NodePath("../Static UI/Mission Complete Label")
-mission_select = 1
 metadata/_custom_type_script = "uid://bl7ilkafe6t6h"
 
-[node name="MissionSolar" type="Node" parent="MissionController" unique_id=236197637 node_paths=PackedStringArray("object", "socket")]
+[node name="MissionSolar" type="Node" parent="MissionController" unique_id=236197637 node_paths=PackedStringArray("object", "socket", "fixed")]
 script = ExtResource("20_vte5o")
-object = NodePath("../../2D Root/Solar Panel2")
+object = NodePath("../../2D Root/Solar Panel")
 socket = NodePath("../../2D Root/Station/Sockets/SocketSolar")
+fixed = NodePath("../../2D Root/FixedZones/FixedSolar")
 metadata/_custom_type_script = "uid://bq0l38rg7lmy7"
 
-[node name="MissionAirlock" type="Node" parent="MissionController" unique_id=1434540757 node_paths=PackedStringArray("object", "socket")]
+[node name="MissionAirlock" type="Node" parent="MissionController" unique_id=1434540757 node_paths=PackedStringArray("object", "socket", "fixed")]
 script = ExtResource("20_vte5o")
 object = NodePath("../../2D Root/Airlock")
 socket = NodePath("../../2D Root/Station/Sockets/SocketAirlock")
+fixed = NodePath("../../2D Root/FixedZones/FixedAirlock")
 metadata/_custom_type_script = "uid://bq0l38rg7lmy7"
 
 [connection signal="charge_amount" from="2D Root/Player" to="Static UI/BarStack" method="_on_player_charge_amount"]

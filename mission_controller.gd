@@ -14,6 +14,13 @@ func _ready():
 	
 	mission[mission_select].socket.part_in_range.connect(player._on_socket_area_part_in_range)
 	mission[mission_select].socket.part_in_range.connect(_on_in_range);
+	
+	for i in range(mission.size()):
+		
+		if i < mission_select:
+			(mission[i] as Mission).object.freeze = true;
+			(mission[i] as Mission).object.transform = (mission[i] as Mission).fixed.transform;
+			(mission[i] as Mission).object.collision_layer = 2
 	pass
 
 func _process(delta):
